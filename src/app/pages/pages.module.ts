@@ -11,6 +11,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
 import { Graficas1Component } from './graficas1/graficas1.component';
 import { IncreaserComponent } from '../components/increaser/increaser.component';
+import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.component';
 
 
 
@@ -20,7 +21,8 @@ import { IncreaserComponent } from '../components/increaser/increaser.component'
         DashboardComponent,
         ProgressComponent,
         Graficas1Component,
-        IncreaserComponent
+        IncreaserComponent,
+        GraficoDonaComponent
     ],
     exports: [
         DashboardComponent,
