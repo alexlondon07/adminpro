@@ -1,0 +1,9 @@
+<h3>{{ leyend }}</h3>
+<div class="input-group">
+  <input #txtPercent min="1" max="100" type="number" class="form-control" (ngModelChange)="onChange($event)" placeholder="" name="percent" [(ngModel)]="percent" aria-label="" aria-describedby="button-addon4">
+  <div class="input-group-append" id="button-addon4">
+    <button (click)="changeValue(-5)" class="btn btn-outline-secondary" type="button">-</button>
+    <button (click)="changeValue(+5)" class="btn btn-outline-primary" type="button">+</button>
+  </div>
+</div>
+
