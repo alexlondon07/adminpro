@@ -13,9 +13,18 @@ export class AccoutSettingsComponent implements OnInit {
   ngOnInit() {
   }
 
-  changeColor(theme: string) {
+  changeColor(theme: string, link: string) {
+    this.applyCheck(link);
     const url = `assets/css/colors/${theme}.css`;
     this._document.getElementById('theme').setAttribute('href', url);
+  }
+
+  applyCheck(link: any) {
+    const selectors = this._document.getElementsByClassName('selector');
+    for (const ref of selectors){
+      ref.classList.remove('working');
+    }
+    link.classList.add('working');
   }
 
 }
