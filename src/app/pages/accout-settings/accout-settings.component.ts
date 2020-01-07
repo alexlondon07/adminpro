@@ -1,5 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
+import { SettingsService } from '../../services/settings.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-accout-settings',
@@ -8,15 +10,16 @@ import { DOCUMENT } from '@angular/platform-browser';
 })
 export class AccoutSettingsComponent implements OnInit {
 
-  constructor( @Inject (DOCUMENT) private _document) { }
+  constructor( @Inject (DOCUMENT) private _document, public settingsService: SettingsService) { }
 
   ngOnInit() {
   }
 
   changeColor(theme: string, link: string) {
+
     this.applyCheck(link);
-    const url = `assets/css/colors/${theme}.css`;
-    this._document.getElementById('theme').setAttribute('href', url);
+
+    this.settingsService.applyTheme(theme);
   }
 
   applyCheck(link: any) {
