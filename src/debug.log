@@ -1,0 +1,8 @@
+[0122/100419.841:ERROR:crash_report_database_win.cc(558)] GetFileAttributes C:\Users\ALEXAN~1.LON\AppData\Local\Temp\karma-49108361\Crashpad: The system cannot find the file specified. (0x2)
+[0122/101038.708:ERROR:crash_report_database_win.cc(558)] GetFileAttributes C:\Users\ALEXAN~1.LON\AppData\Local\Temp\karma-49108361\Crashpad: The system cannot find the file specified. (0x2)
+[0203/111900.786:ERROR:crash_report_database_win.cc(558)] GetFileAttributes C:\Users\ALEXAN~1.LON\AppData\Local\Temp\karma-98783619\Crashpad: The system cannot find the file specified. (0x2)
+[0203/111915.953:ERROR:crash_report_database_win.cc(558)] GetFileAttributes C:\Users\ALEXAN~1.LON\AppData\Local\Temp\karma-98783619\Crashpad: The system cannot find the file specified. (0x2)
+[0203/112230.976:ERROR:crash_report_database_win.cc(558)] GetFileAttributes C:\Users\ALEXAN~1.LON\AppData\Local\Temp\karma-56191567\Crashpad: The system cannot find the file specified. (0x2)
+[0206/084328.420:ERROR:crash_report_database_win.cc(558)] GetFileAttributes C:\Users\ALEXAN~1.LON\AppData\Local\Temp\karma-57328590\Crashpad: The system cannot find the file specified. (0x2)
+[0206/110205.340:ERROR:crash_report_database_win.cc(558)] GetFileAttributes C:\Users\ALEXAN~1.LON\AppData\Local\Temp\karma-4769363\Crashpad: The system cannot find the file specified. (0x2)
+[0206/111020.332:ERROR:crash_report_database_win.cc(558)] GetFileAttributes C:\Users\ALEXAN~1.LON\AppData\Local\Temp\karma-4769363\Crashpad: The system cannot find the file specified. (0x2)

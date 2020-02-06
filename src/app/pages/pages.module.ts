@@ -13,6 +13,7 @@ import { Graficas1Component } from './graficas1/graficas1.component';
 import { IncreaserComponent } from '../components/increaser/increaser.component';
 import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.component';
 import { AccoutSettingsComponent } from './accout-settings/accout-settings.component';
+import { PromisesComponent } from './promises/promises.component';
 
 
 
@@ -24,7 +25,8 @@ import { AccoutSettingsComponent } from './accout-settings/accout-settings.compo
         Graficas1Component,
         IncreaserComponent,
         GraficoDonaComponent,
-        AccoutSettingsComponent
+        AccoutSettingsComponent,
+        PromisesComponent
     ],
     exports: [
         DashboardComponent,
