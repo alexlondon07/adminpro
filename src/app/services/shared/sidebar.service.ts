@@ -21,6 +21,9 @@ export class SidebarService {
           title: 'Promises', url: '/promises'
         },
         {
+          title: 'Ajustes del tema', url: '/account-settings'
+        },
+        {
           title: 'Rxjs', url: '/rxjs'
         },
       ]
