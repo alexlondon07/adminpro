@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { error } from 'protractor';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-rxjs',
@@ -10,25 +10,7 @@ import { error } from 'protractor';
 export class RxjsComponent implements OnInit {
 
   constructor() {
-    let obs = new Observable( observer => {
-      let count = 0;
-        let interval = setInterval( () => {
-          count += 1;
-          observer.next(  count );
-
-          if (count === 3) {
-            clearInterval(interval);
-            observer.complete();
-          }
-
-          if (count === 2) {
-            observer.error('Hello I am an error');
-          }
-
-        }, 1000);
-    });
-
-    obs.subscribe(
+    this.returnObserver().subscribe(
       number => console.log(number),
       error => console.log('Error-->', error),
       () => console.log('Observer had been finished')
@@ -36,6 +18,34 @@ export class RxjsComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  returnObserver(): Observable<number> {
+    return new Observable( observer => {
+      let count = 0;
+        let interval = setInterval( () => {
+          count += 1;
+
+          const output = {
+            value: count
+          };
+
+          observer.next(  output );
+
+          if (count === 3) {
+            clearInterval(interval);
+            observer.complete();
+          }
+
+/*           if (count === 2) {
+            clearInterval(interval);
+            observer.error('Hello I am an error');
+          } */
+
+        }, 1000);
+    }).pipe(
+      map(resp => resp['value'])
+    );
   }
 
 }
