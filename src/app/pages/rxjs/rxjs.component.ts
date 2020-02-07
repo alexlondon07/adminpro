@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import {map} from 'rxjs/operators';
+import {map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-rxjs',
@@ -44,8 +44,16 @@ export class RxjsComponent implements OnInit {
 
         }, 1000);
     }).pipe(
-      map(resp => resp['value'])
-    );
-  }
+      map(resp => resp['value']),
+      filter ( (value, index) => {
+        if ( (value % 2) === 1 ) {
+          // Impar
+          return true;
+        } else {
+          // Par
+          return false;
+        }
+    })
+  );
 
 }
