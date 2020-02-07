@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import {map, filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-rxjs',
   templateUrl: './rxjs.component.html',
   styles: []
 })
-export class RxjsComponent implements OnInit {
+export class RxjsComponent implements OnInit, OnDestroy {
+
+  suscription: Subscription;
 
   constructor() {
-    this.returnObserver().subscribe(
+    this.suscription = this.returnObserver().subscribe(
       number => console.log(number),
       error => console.log('Error-->', error),
       () => console.log('Observer had been finished')
@@ -18,6 +21,11 @@ export class RxjsComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    console.log('Closed page');
+    this.suscription.unsubscribe();
   }
 
   returnObserver(): Observable<number> {
@@ -32,12 +40,12 @@ export class RxjsComponent implements OnInit {
 
           observer.next(  output );
 
-          if (count === 3) {
+        /* if (count === 3) {
             clearInterval(interval);
             observer.complete();
           }
 
-/*           if (count === 2) {
+          if (count === 2) {
             clearInterval(interval);
             observer.error('Hello I am an error');
           } */
@@ -55,5 +63,6 @@ export class RxjsComponent implements OnInit {
         }
     })
   );
+
 
 }
