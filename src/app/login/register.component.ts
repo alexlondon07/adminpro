@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Form, FormGroup, FormControl, Validators } from '@angular/forms';
-import { group } from '@angular/core/src/animation/dsl';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
+import { UserService } from '../services/service.index';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +13,7 @@ export class RegisterComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor() { }
+  constructor( private _userService: UserService) { }
 
   ngOnInit() {
     this.buildForm();
@@ -32,7 +34,7 @@ export class RegisterComponent implements OnInit {
       password: 'alex',
       password2: 'alex',
       conditions: true
-    })
+    });
   }
 
   passwordEquals(field1: string, field2: string) {
@@ -55,12 +57,19 @@ export class RegisterComponent implements OnInit {
     if ( this.form.invalid ) {
       return;
     }
-    if ( this.form.value.conditions ) {
-      console.log('Debe aceptar los términos.');
+    if ( !this.form.value.conditions ) {
+      Swal.fire('Oops!', 'Debe aceptar los términos', 'warning');
     }
-    console.log(this.form);
 
-    console.log(this.form.value);
+    let user = new User(
+      this.form.value.name,
+      this.form.value.email,
+      this.form.value.password
+    );
+
+    this._userService.createUser(user).subscribe (resp => {
+      console.log(resp);
+    });
   }
 
 }
