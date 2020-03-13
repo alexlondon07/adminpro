@@ -27,11 +27,16 @@
                         <input class="form-control" type="password" formControlName="password2" name="password2" placeholder="Confirma contraseña">
                     </div>
                 </div>
+
+                <div class="form-group" *ngIf="form.errors?.passwordEquals && !form.pristine">
+                  <p class="text-danger">Las contraseñas deben ser iguales</p>
+                </div>
+
                 <div class="form-group row">
                     <div class="col-md-12">
                         <div class="checkbox checkbox-primary p-t-0">
                             <input formControlName="conditions" name="conditions" name="conditions" type="checkbox">
-                            <label for="checkbox-signup"> Estoy de acuerdo con los <a href="#">términos</a></label>
+                            <label for="conditions"> Estoy de acuerdo con los <a href="#">términos</a></label>
                         </div>
                     </div>
                 </div>
@@ -40,6 +45,9 @@
                         <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Registrarme</button>
                     </div>
                 </div>
+
+
+
                 <div class="form-group m-b-0">
                     <div class="col-sm-12 text-center">
                         <p>¿Tienes una cuenta? <a href="pages-login-2.html" class="text-info m-l-5"><b>Ingresa ahora</b></a></p>
