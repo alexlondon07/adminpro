@@ -41,8 +41,28 @@ export class LoginComponent implements OnInit {
 
       const token = googleUser.getAuthResponse().id_token;
       console.log(token);
+      this.loginGoogle(token);
     });
   }
+
+  /**
+   * Metodo para realizar el login con Google
+   */
+  loginGoogle( token: string) {
+    this._userService.loginGoogle( token ).subscribe(
+      data => {
+        if (data['ok']) {
+          this.setLocalStorageLogin(data);
+        } else {
+          swal('Oops!', 'Ha ocurrido un error en el login de google , Inténtalo más tarde', 'warning');
+        }
+      },
+      error => {
+          swal('Oops!', error.error.message, 'warning');
+      }
+    );
+  }
+
   /**
    * Metodo para realizar el login de la aplicación
    */
@@ -51,16 +71,20 @@ export class LoginComponent implements OnInit {
     this._userService.login( user, form.value.remember ).subscribe(
       data => {
         if (data['ok']) {
-          localStorage.setItem('id', data['user']);
-          localStorage.setItem('token', data['token']);
-          this.router.navigate(['/dashboard']);
+          this.setLocalStorageLogin(data);
         } else {
-          swal('Oops!', 'Ha ocurrido un error en el login , intentelo más tarde', 'warning');
+          swal('Oops!', 'Ha ocurrido un error en el login , Inténtalo más tarde', 'warning');
         }
       },
       error => {
           swal('Oops!', error.error.message, 'warning');
       }
-    )
+    );
+  }
+
+  setLocalStorageLogin(data: any) {
+    localStorage.setItem('id', data['user']._id);
+    localStorage.setItem('token', data['token']);
+    this.router.navigate(['/dashboard']);
   }
 }

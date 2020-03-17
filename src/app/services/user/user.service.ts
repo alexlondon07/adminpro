@@ -22,7 +22,11 @@ constructor(public _http: HttpClient) { }
         localStorage.removeItem('email');
       }
       let url =`${URL_SERVICES}/login`;
-      console.log('Login', url);
       return this._http.post(url, user);
+    }
+
+    loginGoogle(token: string) {
+      let url =`${URL_SERVICES}/login/google`;
+      return this._http.post(url, { token });
     }
 }
