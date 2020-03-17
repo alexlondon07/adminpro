@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
+import swal from 'sweetalert';
 import { UserService } from '../services/service.index';
 import { User } from '../models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,7 @@ export class RegisterComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor( private _userService: UserService) { }
+  constructor( private _userService: UserService, public router: Router) { }
 
   ngOnInit() {
     this.buildForm();
@@ -29,7 +30,7 @@ export class RegisterComponent implements OnInit {
     }, { validators: this.passwordEquals( 'password', 'password2' )} );
 
     this.form.setValue({
-      name: 'Alexander Londoño',
+      name: 'Alexander Londoño Espejo',
       email: 'alexlondon07@gmail.com',
       password: 'alex',
       password2: 'alex',
@@ -53,23 +54,34 @@ export class RegisterComponent implements OnInit {
     };
   }
 
+  /**
+  * Método para registrar un usuario en la BD
+  */
   registerUser() {
     if ( this.form.invalid ) {
       return;
     }
     if ( !this.form.value.conditions ) {
-      Swal.fire('Oops!', 'Debe aceptar los términos', 'warning');
+      swal('Oops!', 'Debe aceptar los términos', 'warning');
+    } else {
+      let user = new User(
+        this.form.value.name,
+        this.form.value.email,
+        this.form.value.password
+      );
+      this._userService.createUser(user).subscribe(
+          data => {
+            if(data['ok']){
+              swal('Usuario creado correctamente.', data.user.email, 'success');
+              setTimeout(() => { this.router.navigate(['/login'])}, 1500);
+            } else {
+              swal('Oops!', 'Ha ocurrido un error , intentelo más tarde', 'warning');
+            }
+          },
+          error => {
+              swal('Oops!', error.error.message, 'warning');
+          }
+        );
     }
-
-    let user = new User(
-      this.form.value.name,
-      this.form.value.email,
-      this.form.value.password
-    );
-
-    this._userService.createUser(user).subscribe (resp => {
-      console.log(resp);
-    });
   }
-
 }
