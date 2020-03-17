@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
    * Metodo para realizar el login de la aplicación
    */
   login(form: NgForm) {
-    console.log(form);
     const user = new User(null, form.value.email, form.value.password);
     this._userService.login( user, form.value.remember ).subscribe(
       data => {

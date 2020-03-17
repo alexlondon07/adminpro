@@ -16,6 +16,11 @@ constructor(public _http: HttpClient) { }
     }
 
     login (user: User, remember: boolean = false ) {
+      if (remember ) {
+        localStorage.setItem('email', user.email);
+      }else {
+        localStorage.removeItem('email');
+      }
       let url =`${URL_SERVICES}/login`;
       console.log('Login', url);
       return this._http.post(url, user);
