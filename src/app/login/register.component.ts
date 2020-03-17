@@ -71,8 +71,8 @@ export class RegisterComponent implements OnInit {
       );
       this._userService.createUser(user).subscribe(
           data => {
-            if(data['ok']){
-              swal('Usuario creado correctamente.', data.user.email, 'success');
+            if (data['ok']) {
+              swal('Usuario creado correctamente.', data['user'].email, 'success');
               setTimeout(() => { this.router.navigate(['/login'])}, 1500);
             } else {
               swal('Oops!', 'Ha ocurrido un error , intentelo más tarde', 'warning');

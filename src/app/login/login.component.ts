@@ -4,7 +4,8 @@ import swal from 'sweetalert';
 import { User } from '../models/user.model';
 import { UserService } from '../services/service.index';
 import { NgForm } from '@angular/forms';
-// declare function init_plugins();
+
+declare const gapi: any;
 
 @Component({
   selector: 'app-login',
@@ -14,13 +15,34 @@ import { NgForm } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   remember = true;
+  auth2: any;
 
   constructor( public router: Router, public _userService: UserService) { }
 
   ngOnInit() {
-    // init_plugins();
+    this.googleInit();
   }
 
+  googleInit() {
+    gapi.load('auth2', () => {
+      this.auth2 = gapi.auth2.init({
+        client_id: "303470695743-ns1e9d6ekrmmhpag18lc92jp95u47vfq.apps.googleusercontent.com",
+        cookiepolicy: 'single_host_origin',
+        scope: 'profile email'
+      });
+      this.attachSignin( document.getElementById('btnGoogle') );
+    });
+  }
+
+  attachSignin (element ) {
+    this.auth2.attachClickHandler( element, {}, (googleUser) => {
+      const profile = googleUser.getBasicProfile();
+      console.log( profile );
+
+      const token = googleUser.getAuthResponse().id_token;
+      console.log(token);
+    });
+  }
   /**
    * Metodo para realizar el login de la aplicación
    */
