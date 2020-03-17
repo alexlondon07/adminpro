@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import 'rxjs/Rx';
 import { User } from '../../models/user.model';
 import { URL_SERVICES } from '../../config';
+import { Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class UserService {
 
 constructor(public _http: HttpClient) { }
 
-    createUser(user: User):Observable<> {
+    createUser(user: User) {
       let url =`${URL_SERVICES}/users`;
       return this._http.post(url, user);
     }
@@ -19,6 +20,4 @@ constructor(public _http: HttpClient) { }
       console.log('Login', url);
       return this._http.post(url, user);
     }
-
-  }
 }

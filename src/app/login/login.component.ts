@@ -21,12 +21,17 @@ export class LoginComponent implements OnInit {
     // init_plugins();
   }
 
+  /**
+   * Metodo para realizar el login de la aplicación
+   */
   login(form: NgForm) {
     console.log(form);
     const user = new User(null, form.value.email, form.value.password);
     this._userService.login( user, form.value.remember ).subscribe(
       data => {
-        if(data['ok']){
+        if (data['ok']) {
+          localStorage.setItem('id', data['user']);
+          localStorage.setItem('token', data['token']);
           this.router.navigate(['/dashboard']);
         } else {
           swal('Oops!', 'Ha ocurrido un error en el login , intentelo más tarde', 'warning');
