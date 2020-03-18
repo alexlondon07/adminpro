@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import swal from 'sweetalert';
+import * as swal from 'sweetalert';
 import { User } from '../models/user.model';
 import { UserService } from '../services/service.index';
 import { NgForm } from '@angular/forms';
@@ -85,6 +85,7 @@ export class LoginComponent implements OnInit {
   setLocalStorageLogin(data: any) {
     localStorage.setItem('id', data['user']._id);
     localStorage.setItem('token', data['token']);
-    this.router.navigate(['/dashboard']);
+    window.location.href = '#/dashboard';
+//    this.router.navigate(['/dashboard']);
   }
 }
