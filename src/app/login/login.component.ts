@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import * as swal from 'sweetalert';
+
 import { User } from '../models/user.model';
 import { UserService } from '../services/service.index';
 import { NgForm } from '@angular/forms';
+// ES6 Modules or TypeScript
+import Swal from 'sweetalert2';
 
 declare const gapi: any;
 
@@ -54,14 +56,15 @@ export class LoginComponent implements OnInit {
         if (data['ok']) {
           this.setLocalStorageLogin(data);
         } else {
-          swal('Oops!', 'Ha ocurrido un error en el login de google , Inténtalo más tarde', 'warning');
+          Swal.fire("Oops!", "Ha ocurrido un error en el login de google , Inténtalo más tarde", "warning");
         }
       },
       error => {
-          swal('Oops!', error.error.message, 'warning');
+          Swal.fire("Oops!", error.error.message, "warning");
       }
     );
   }
+
 
   /**
    * Metodo para realizar el login de la aplicación
@@ -73,11 +76,13 @@ export class LoginComponent implements OnInit {
         if (data['ok']) {
           this.setLocalStorageLogin(data);
         } else {
-          swal('Oops!', 'Ha ocurrido un error en el login , Inténtalo más tarde', 'warning');
+          Swal.fire("Oops!", "Ha ocurrido un error en el login , Inténtalo más tarde", "warning");
         }
       },
       error => {
-          swal('Oops!', error.error.message, 'warning');
+        console.log(error.error.message);
+        const errorMjs = error.error.message !== undefined ? error.error.message : 'Error en el backend';
+        Swal.fire("Oops!", errorMjs, "warning");
       }
     );
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import swal from 'sweetalert';
+// ES6 Modules or TypeScript
+import Swal from 'sweetalert2';
 import { UserService } from '../services/service.index';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
@@ -62,7 +63,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
     if ( !this.form.value.conditions ) {
-      swal('Oops!', 'Debe aceptar los términos', 'warning');
+      Swal.fire('Oops!', 'Debe aceptar los términos', 'warning');
     } else {
       let user = new User(
         this.form.value.name,
@@ -72,14 +73,14 @@ export class RegisterComponent implements OnInit {
       this._userService.createUser(user).subscribe(
           data => {
             if (data['ok']) {
-              swal('Usuario creado correctamente.', data['user'].email, 'success');
+              Swal.fire('Usuario creado correctamente.', data['user'].email, 'success');
               setTimeout(() => { this.router.navigate(['/login'])}, 1500);
             } else {
-              swal('Oops!', 'Ha ocurrido un error , intentelo más tarde', 'warning');
+              Swal.fire('Oops!', 'Ha ocurrido un error , intentelo más tarde', 'warning');
             }
           },
           error => {
-              swal('Oops!', error.error.message, 'warning');
+              Swal.fire('Oops!', error.error.message, 'warning');
           }
         );
     }
