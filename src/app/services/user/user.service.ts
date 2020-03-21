@@ -43,7 +43,7 @@ export class UserService {
    * Metodo para realiza el login con Google
    */
   loginGoogle(token: string) {
-    let url = `${URL_SERVICES}/login/google`;
+    const url = `${URL_SERVICES}/login/google`;
     return this._http.post(url, { token });
   }
 
@@ -76,7 +76,21 @@ export class UserService {
     this.user = null;
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-
     this._router.navigate(['login']);
+  }
+
+  /**
+   * Metodo para guardar en localstorage
+   * @param id
+   * @param token
+   * @param user
+   */
+  saveStorage( id: string, token: string, user: User ) {
+    localStorage.setItem('id', id );
+    localStorage.setItem('token', token );
+    localStorage.setItem('user', JSON.stringify(user) );
+
+    this.user = user;
+    this.token = token;
   }
 }

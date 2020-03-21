@@ -5,7 +5,7 @@ import { User } from '../models/user.model';
 import { UserService } from '../services/service.index';
 import { NgForm } from '@angular/forms';
 // ES6 Modules or TypeScript
-import Swal from 'sweetalert2';
+import * as Swal from 'sweetalert2';
 
 declare const gapi: any;
 
@@ -39,10 +39,7 @@ export class LoginComponent implements OnInit {
   attachSignin (element ) {
     this.auth2.attachClickHandler( element, {}, (googleUser) => {
       const profile = googleUser.getBasicProfile();
-      console.log( profile );
-
       const token = googleUser.getAuthResponse().id_token;
-      console.log(token);
       this.loginGoogle(token);
     });
   }
@@ -53,6 +50,7 @@ export class LoginComponent implements OnInit {
   loginGoogle( token: string) {
     this._userService.loginGoogle( token ).subscribe(
       data => {
+        console.log('data response', data);
         if (data['ok']) {
           this.setLocalStorageLogin(data);
         } else {
@@ -64,7 +62,6 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-
 
   /**
    * Metodo para realizar el login de la aplicación
@@ -88,8 +85,8 @@ export class LoginComponent implements OnInit {
   }
 
   setLocalStorageLogin(data: any) {
-    localStorage.setItem('id', data['user']._id);
-    localStorage.setItem('token', data['token']);
+    console.log('response', data);
+    this._userService.saveStorage( data['user']._id, data['token'], data['user'] );
     window.location.href = '#/dashboard';
 //    this.router.navigate(['/dashboard']);
   }

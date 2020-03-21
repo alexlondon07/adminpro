@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 // ES6 Modules or TypeScript
-import Swal from 'sweetalert2';
+import * as Swal from 'sweetalert2';
 import { UserService } from '../services/service.index';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';

@@ -16,6 +16,7 @@ import { AccoutSettingsComponent } from './accout-settings/accout-settings.compo
 import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { PipesModule } from '../pipes/pipes.module';
 
 
 
@@ -41,7 +42,8 @@ import { BrowserModule } from '@angular/platform-browser';
         SharedModule,
         PAGES_ROUTES,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        PipesModule
     ]
 })
 export class PagesModule { }
