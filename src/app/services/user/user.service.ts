@@ -20,8 +20,16 @@ export class UserService {
    * @param user
    */
   createUser(user: User) {
-    let url = `${URL_SERVICES}/users`;
+    const url = `${URL_SERVICES}/users`;
     return this._http.post(url, user);
+  }
+
+  /**
+   * Método apra actualizar un usuario
+   */
+  updateUser(user: User) {
+    const url = `${URL_SERVICES}/users/${user._id}?token=${this.token}`;
+    return this._http.put(url, user);
   }
 
   /**

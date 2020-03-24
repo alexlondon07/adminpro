@@ -22,9 +22,15 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
   }
 
-  save(user: User) {
-
-
+  /**
+   * Metodo para guardar lso datos del usuario
+   * @param user
+   */
+  save(u: User) {
+    this.user.name = u.name;
+    this._userService.updateUser(this.user).subscribe( resp => {
+      console.log(resp);
+    });
   }
 
   chooseImg(file: File) {
