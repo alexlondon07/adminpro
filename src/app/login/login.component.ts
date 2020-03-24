@@ -50,7 +50,6 @@ export class LoginComponent implements OnInit {
   loginGoogle( token: string) {
     this._userService.loginGoogle( token ).subscribe(
       data => {
-        console.log('data response', data);
         if (data['ok']) {
           this.setLocalStorageLogin(data);
         } else {

@@ -94,11 +94,16 @@ export class UserService {
    * @param user
    */
   saveStorage( id: string, token: string, user: User ) {
-    localStorage.setItem('id', id );
-    localStorage.setItem('token', token );
-    localStorage.setItem('user', JSON.stringify(user) );
-
-    this.user = user;
-    this.token = token;
+    if ( id != null ) {
+      localStorage.setItem('id', id );
+    }
+    if ( token != null ) {
+      localStorage.setItem('token', token );
+      this.token = token;
+    }
+    if ( user != null ) {
+      localStorage.setItem('user', JSON.stringify(user) );
+      this.user = user;
+    }
   }
 }

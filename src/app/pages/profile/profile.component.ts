@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/service.index';
+import  Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-profile',
@@ -28,8 +29,16 @@ export class ProfileComponent implements OnInit {
    */
   save(u: User) {
     this.user.name = u.name;
+    if ( !this.user.google ) {
+      this.user.email = u.email;
+    }
     this._userService.updateUser(this.user).subscribe( resp => {
-      console.log(resp);
+      if (resp['ok']) {
+        this._userService.saveStorage(null, null, resp['user']);
+        Swal.fire("Usuario actualizado!", resp['user'].email , "success");
+      } else {
+        Swal.fire("Oops!", "Ha ocurrido un error al actualizar el usuario , Inténtalo más tarde", "warning");
+      }
     });
   }
 
