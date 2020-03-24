@@ -112,7 +112,7 @@
                     <div class="dropdown-menu dropdown-menu-right animated fadeIn">
                         <ul class="dropdown-user">
                             <li>
-                                <div class="dw-user-box">
+                                <div class="dw-user-box" align="center">
                                     <div class="u-img"><img [src]="user.img | image" alt="user"></div>
                                     <div class="u-text">
                                         <h4> {{ user.name }} </h4>
@@ -120,7 +120,7 @@
                                 </div>
                             </li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
+                            <li><a [routerLink]="['/profile']" routerLinkActive="router-link-active"  ><i class="ti-user"></i> My Profile</a></li>
                             <li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>
                             <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
                             <li role="separator" class="divider"></li>

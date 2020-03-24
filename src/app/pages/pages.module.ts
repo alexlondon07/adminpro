@@ -17,6 +17,7 @@ import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { PipesModule } from '../pipes/pipes.module';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -30,7 +31,8 @@ import { PipesModule } from '../pipes/pipes.module';
         GraficoDonaComponent,
         AccoutSettingsComponent,
         PromisesComponent,
-        RxjsComponent
+        RxjsComponent,
+        ProfileComponent
     ],
     exports: [
         DashboardComponent,
