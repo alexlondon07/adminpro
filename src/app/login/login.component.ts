@@ -5,7 +5,7 @@ import { User } from '../models/user.model';
 import { UserService } from '../services/service.index';
 import { NgForm } from '@angular/forms';
 // ES6 Modules or TypeScript
-import * as Swal from 'sweetalert2';
+import  Swal from 'sweetalert2';
 
 declare const gapi: any;
 
@@ -85,9 +85,8 @@ export class LoginComponent implements OnInit {
   }
 
   setLocalStorageLogin(data: any) {
-    console.log('response', data);
-    this._userService.saveStorage( data['user']._id, data['token'], data['user'] );
+    const userDb: User = data['user'];
+    this._userService.saveStorage( data['user']._id, data['token'], userDb );
     window.location.href = '#/dashboard';
-//    this.router.navigate(['/dashboard']);
   }
 }
