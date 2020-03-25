@@ -3,15 +3,16 @@ import { HttpClient } from "@angular/common/http";
 import "rxjs/Rx";
 import { User } from "../../models/user.model";
 import { URL_SERVICES } from "../../config";
-import { Observable } from "rxjs/Rx";
 import { Router } from "@angular/router";
+import { UploadService } from "../file/upload.service";
+import  Swal from 'sweetalert2';
 
 @Injectable()
 export class UserService {
   user: any;
   token: string;
 
-  constructor(public _http: HttpClient, public _router: Router) {
+  constructor(public _http: HttpClient, public _router: Router, public _upload: UploadService) {
     this.loadStorage();
   }
 
@@ -105,5 +106,22 @@ export class UserService {
       localStorage.setItem('user', JSON.stringify(user) );
       this.user = user;
     }
+  }
+
+  /**
+   * Metodo para cambiar la imagen del perfil
+   * @param file
+   * @param id
+   */
+  changeImg(file: File, id: string ) {
+    this._upload.uploadFile( file, 'user', id)
+    .then ( (resp: any) => {
+      this.user.img = resp.user.img;
+      Swal.fire('Imagen actualizada', this.user.name, 'success');
+    })
+    .catch ( resp => {
+      console.log( resp );
+      Swal.fire("Oops!", "Ha ocurrido un error al actualizar la imagen del usuario , Inténtalo más tarde", "warning");
+    });
   }
 }

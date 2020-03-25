@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user.model';
-import { UserService } from '../../services/service.index';
+import { UserService, UploadService } from '../../services/service.index';
 import  Swal from 'sweetalert2';
 
 @Component({
@@ -15,7 +15,8 @@ export class ProfileComponent implements OnInit {
   imgTemp: string;
 
   constructor(
-    public _userService: UserService
+    public _userService: UserService,
+    public _upload: UploadService
   ) {
     this.user = this._userService.user;
   }
@@ -44,27 +45,28 @@ export class ProfileComponent implements OnInit {
 
   chooseImg(file: File) {
 
-    // if ( !archivo ) {
-    //   this.imgUpload = null;
-    //   return;
-    // }
+    if ( !file ) {
+      this.imgUpload = null;
+      return;
+    }
 
-    // if ( archivo.type.indexOf('image') < 0 ) {
-    //   swal.fire('Sólo imágenes', 'El archivo seleccionado no es una imagen', 'error');
-    //   this.imgUpload = null;
-    //   return;
-    // }
+    if ( file.type.indexOf('image') < 0 ) {
+      Swal.fire('Sólo imágenes', 'El archivo seleccionado no es una imagen', 'error');
+      this.imgUpload = null;
+      return;
+    }
 
-    // this.imgUpload = archivo;
+    this.imgUpload = file;
 
     // let reader = new FileReader();
-    // let urlImgTemp = reader.readAsDataURL( archivo );
+    // let urlImgTemp = reader.readAsDataURL( file );
 
     // reader.onloadend = () => this.imgTemp = reader.result;
 
   }
 
   changeImg() {
+    this._userService.changeImg ( this.imgUpload, this.user._id );
   }
 
 }
