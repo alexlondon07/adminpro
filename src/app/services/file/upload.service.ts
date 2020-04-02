@@ -11,8 +11,8 @@ export class UploadService {
 
     return new Promise((resolve, reject) => {
 
-      let formData = new FormData();
-      let xhr = new XMLHttpRequest();
+      const formData = new FormData();
+      const xhr = new XMLHttpRequest();
 
       formData.append('imagen', file, file.name);
 

@@ -12,7 +12,7 @@ export class ProfileComponent implements OnInit {
 
   user: User;
   imgUpload: File;
-  imgTemp: string;
+  imgTemp: any;
 
   constructor(
     public _userService: UserService,
@@ -43,6 +43,9 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo para seleccionar una imagen
+   */
   chooseImg(file: File) {
 
     if ( !file ) {
@@ -58,10 +61,13 @@ export class ProfileComponent implements OnInit {
 
     this.imgUpload = file;
 
-    // let reader = new FileReader();
-    // let urlImgTemp = reader.readAsDataURL( file );
+    const reader = new FileReader();
+    const urlImgTemp = reader.readAsDataURL( file );
 
-    // reader.onloadend = () => this.imgTemp = reader.result;
+    reader.onloadend = () => {
+      this.imgTemp = reader.result;
+      console.log( reader.result );
+    }
 
   }
 

@@ -113,10 +113,10 @@
                         <ul class="dropdown-user">
                             <li>
                                 <div class="dw-user-box" align="center">
-                                    <div class="u-img"><img [src]="user.img | image" alt="user"></div>
+                                    <div class="u-img"><img [src]="user.img | image" alt="user" height="70" width="70"></div>
                                     <div class="u-text">
                                         <h4> {{ user.name }} </h4>
-                                        <p class="text-muted">{{ user.email }} </p><a href="pages-profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
+                                        <p class="text-muted">{{ user.email }} </p><a [routerLink]="['/profile']" routerLinkActive="router-link-active"  class="btn btn-rounded btn-danger btn-sm">Perfil</a></div>
                                 </div>
                             </li>
                             <li role="separator" class="divider"></li>

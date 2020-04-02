@@ -26,7 +26,7 @@ export class UserService {
   }
 
   /**
-   * Método apra actualizar un usuario
+   * Método para actualizar un usuario
    */
   updateUser(user: User) {
     const url = `${URL_SERVICES}/users/${user._id}?token=${this.token}`;
