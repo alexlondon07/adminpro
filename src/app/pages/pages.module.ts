@@ -18,7 +18,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { PipesModule } from '../pipes/pipes.module';
 import { ProfileComponent } from './profile/profile.component';
-
+import { UsersComponent } from './users/users.component';
 
 
 @NgModule({
@@ -32,7 +32,8 @@ import { ProfileComponent } from './profile/profile.component';
         AccoutSettingsComponent,
         PromisesComponent,
         RxjsComponent,
-        ProfileComponent
+        ProfileComponent,
+        UsersComponent
     ],
     exports: [
         DashboardComponent,
