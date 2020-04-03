@@ -25,7 +25,7 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h3>Usuarios registrados ( <small>123</small>)</h3>        
+        <h3>Usuarios registrados ( <small>123</small>)</h3>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -37,64 +37,34 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td>Otto</td>
-              <td>@mdo</td>
+            <tr *ngFor="let user of users">
+              <td></td>
+              <td>{{ user.name }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.role }}</td>
               <td>
-                <button class="btn btn-primary">
-                  <i class="fa fa-save"></i>
-                </button> 
-                <button class="btn btn-danger">
-                  <i class="fa fa-trash-o"></i>
-                </button> 
+                <label *ngIf="user.google" class="label label-danger">Google</label>
+                <label *ngIf="!user.google" class="label label-primary">Normal</label>
               </td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td>Otto</td>
-              <td>Otto</td>
               <td>
                 <button class="btn btn-primary">
                   <i class="fa fa-save"></i>
-                </button> 
+                </button>
                 <button class="btn btn-danger">
                   <i class="fa fa-trash-o"></i>
-                </button> 
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td>Otto</td>
-              <td>Otto</td>
-              <td>
-                <button class="btn btn-primary">
-                  <i class="fa fa-save"></i>
-                </button> 
-                <button class="btn btn-danger">
-                  <i class="fa fa-trash-o"></i>
-                </button> 
+                </button>
               </td>
             </tr>
           </tbody>
         </table>
 
-        <button class="btn btn-secondary">
+        <button (click)="changeSince(-5);" class="btn btn-secondary">
           Anteriores
-        </button> 
+        </button>
 
-        <button class="btn btn-secondary">
+        <button (click)="changeSince(5);" class="btn btn-secondary">
           Siguiente
-        </button> 
+        </button>
 
       </div>
     </div>

@@ -124,4 +124,12 @@ export class UserService {
       Swal.fire("Oops!", "Ha ocurrido un error al actualizar la imagen del usuario , Inténtalo más tarde", "warning");
     });
   }
+
+  /**
+   * Metodo para obtener los usuarios registrados en la bd
+   */
+  getUsers( since: number = 0) {
+    const url = `${URL_SERVICES}/users?from=${since}`;
+    return this._http.get(url);
+  }
 }
