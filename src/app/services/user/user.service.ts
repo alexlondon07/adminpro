@@ -132,4 +132,14 @@ export class UserService {
     const url = `${URL_SERVICES}/users?from=${since}`;
     return this._http.get(url);
   }
+
+  /**
+   * Metodo para buscar usuarios
+   * @param text Texto del usuario a buscar
+   */
+    searchUsers( text: string) {
+    const url = `${URL_SERVICES}/search/collection/user/${text}`;
+    return this._http.get(url);
+  }
+
 }

@@ -12,6 +12,8 @@ export class UsersComponent implements OnInit {
   users: User[] = [];
   totalRows = 0;
   since = 0;
+  loading = true;
+
 
   constructor(public _userService: UserService) { }
 
@@ -20,15 +22,38 @@ export class UsersComponent implements OnInit {
   }
 
   /**
-   * Metodo para cargar los usuaarios de la bd
+   * Metodo para cargar los usuarios de la bd
    */
   loadUsers() {
+    this.loading = true;
     this._userService.getUsers( this.since ).subscribe( (resp: any) => {
       if ( resp['ok']) {
         this.totalRows = resp.total;
         this.users = resp.users;
+        this.loading = false;
       }
-      console.log( resp );
+    });
+  }
+
+  /**
+   * Método para buscar un usuario
+   * @param text Texto de búsqueda para el usuario
+   */
+  searchUsers(text: string) {
+
+    if ( text.length <= 0 ) {
+      this.loadUsers();
+      return;
+    }
+
+    this.loading = true;
+
+    this._userService.searchUsers( text ).subscribe( (resp: any) => {
+      if ( resp['ok']) {
+        this.totalRows = resp.total;
+        this.users = resp.users;
+        this.loading = false;
+      }
     });
   }
 

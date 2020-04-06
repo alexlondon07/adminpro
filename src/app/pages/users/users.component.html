@@ -3,14 +3,17 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <input #input type="text" class="form-control" placeholder="Buscar usuario" value="value">
+        <input
+        #input type="text" class="form-control"
+        (keyup)="searchUsers( input.value )"
+        placeholder="Buscar usuario...">
       </div>
     </div>
   </div>
 </div>
 
 
-<div class="row">
+<div class="row animated fadeIn" *ngIf="loading">
   <div class="alert alert-warning text-center">
     <strong> Cargando </strong>
     <br>
@@ -21,7 +24,7 @@
 </div>
 
 
-<div class="row animated fadein">
+<div class="row animated fadein" *ngIf="!loading">
   <div class="col-12">
     <div class="card">
       <div class="card-body">
@@ -38,7 +41,9 @@
           </thead>
           <tbody>
             <tr *ngFor="let user of users">
-              <td></td>
+              <td>
+                <img [src]="user.img | image" alt="Imagen" class="img50 img-circle">
+              </td>
               <td>{{ user.name }}</td>
               <td>{{ user.email }}</td>
               <td>{{ user.role }}</td>
