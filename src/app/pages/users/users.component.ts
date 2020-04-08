@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/service.index';
 import { User } from '../../models/user.model';
+// ES6 Modules or TypeScript
+import  Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-users',
@@ -53,6 +55,48 @@ export class UsersComponent implements OnInit {
         this.totalRows = resp.total;
         this.users = resp.users;
         this.loading = false;
+      }
+    });
+  }
+
+  /**
+   * Método para eliminar un usuario
+   * @param id Identificador del usuario
+   */
+  deleteUser(user: User) {
+
+    console.log(user._id);
+    console.log(this._userService.user._id);
+
+    if (user._id === this._userService.user._id) {
+      Swal.fire("Importante!", "Error, No se puede borrar a si mismo", "error");
+      return;
+    }
+
+    Swal.fire({
+      title: 'Estas seguro?',
+      text: "La información a eliminar es irreversible recuperar!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Estoy seguro!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+
+        this.loading = true;
+
+        // this._userService.deleteUser( user._id ).subscribe( (resp: any) => {
+        //   if ( resp['ok']) {
+        //     this.loading = false;
+        //     Swal.fire(
+        //       'Eliminado!',
+        //       'El registro ha sido eliminado',
+        //       'success'
+        //     );
+        //   }
+        // });
       }
     });
   }

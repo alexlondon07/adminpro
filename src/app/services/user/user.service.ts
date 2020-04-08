@@ -142,4 +142,11 @@ export class UserService {
     return this._http.get(url);
   }
 
+  /**
+   * Metodo para eliminar un usuario
+   */
+  deleteUser(id: number) {
+    const url =  `${URL_SERVICES}/user/${id}`;
+    return this._http.delete(url);
+  }
 }
