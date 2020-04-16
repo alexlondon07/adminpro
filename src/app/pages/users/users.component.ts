@@ -64,10 +64,6 @@ export class UsersComponent implements OnInit {
    * @param id Identificador del usuario
    */
   deleteUser(user: User) {
-
-    console.log(user._id);
-    console.log(this._userService.user._id);
-
     if (user._id === this._userService.user._id) {
       Swal.fire("Importante!", "Error, No se puede borrar a si mismo", "error");
       return;
@@ -84,19 +80,17 @@ export class UsersComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
-
         this.loading = true;
-
-        // this._userService.deleteUser( user._id ).subscribe( (resp: any) => {
-        //   if ( resp['ok']) {
-        //     this.loading = false;
-        //     Swal.fire(
-        //       'Eliminado!',
-        //       'El registro ha sido eliminado',
-        //       'success'
-        //     );
-        //   }
-        // });
+        this._userService.deleteUser( user._id ).subscribe( (resp: any) => {
+          if ( resp['ok']) {
+            this.loading = false;
+            Swal.fire(
+              'Eliminado!',
+              'El registro ha sido eliminado',
+              'success'
+            );
+          }
+        });
       }
     });
   }
@@ -115,5 +109,16 @@ export class UsersComponent implements OnInit {
     }
     this.since  += value;
     this.loadUsers();
+  }
+
+  /**
+   * Metodo para guardar usuario
+   * @param user 
+   */
+  saveUser(user: User){
+    this._userService.updateUser(user).subscribe( (resp: any) => {
+      this._userService.validateResponseService( resp, "Usuario actualizado!" );
+    });
+    
   }
 }

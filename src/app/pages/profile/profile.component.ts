@@ -34,12 +34,7 @@ export class ProfileComponent implements OnInit {
       this.user.email = u.email;
     }
     this._userService.updateUser(this.user).subscribe( resp => {
-      if (resp['ok']) {
-        this._userService.saveStorage(null, null, resp['user']);
-        Swal.fire("Usuario actualizado!", resp['user'].email , "success");
-      } else {
-        Swal.fire("Oops!", "Ha ocurrido un error al actualizar el usuario , Inténtalo más tarde", "warning");
-      }
+      this._userService.validateResponseService( resp, "Usuario actualizado!" );
     });
   }
 

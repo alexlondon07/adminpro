@@ -11,6 +11,7 @@ import  Swal from 'sweetalert2';
 export class UserService {
   user: any;
   token: string;
+  msj = "Ha ocurrido un error al actualizar el usuario , Inténtalo más tarde";
 
   constructor(public _http: HttpClient, public _router: Router, public _upload: UploadService) {
     this.loadStorage();
@@ -145,8 +146,24 @@ export class UserService {
   /**
    * Metodo para eliminar un usuario
    */
-  deleteUser(id: number) {
+  deleteUser(id: string) {
     const url =  `${URL_SERVICES}/user/${id}`;
     return this._http.delete(url);
   }
+
+  /**
+   * Metodo para                         
+   * @param response 
+   * @param successMessage 
+   * @param errMessage 
+   */
+  validateResponseService( response: any, successMessage: string, errMessage = this.msj ){
+    if (response['ok']) {
+      this.saveStorage(null, null, response['user']);
+      Swal.fire(successMessage, response['user'].email , "success");
+    } else {
+      Swal.fire("Oops!", errMessage, "warning");
+    }
+  }
+
 }
