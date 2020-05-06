@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { URL_SERVICES } from '../../config';
-
+// ES6 Modules or TypeScript
+import  Swal from 'sweetalert2';
 @Injectable()
 export class UploadService {
 
@@ -24,7 +25,9 @@ export class UploadService {
             console.log('Imagen subida');
             resolve(JSON.parse(xhr.response));
           } else {
+            let error = JSON.parse(xhr.response);
             console.log('Fallo la subida');
+            // Swal.fire("Oops!", error.errors.message, "warning");
             reject(xhr.response);
           }
 

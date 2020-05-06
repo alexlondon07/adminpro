@@ -3,24 +3,32 @@ import { UserService } from '../../services/service.index';
 import { User } from '../../models/user.model';
 // ES6 Modules or TypeScript
 import  Swal from 'sweetalert2';
+import { ModalUploadService } from '../modal-upload/modal-upload.service';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  selector: "app-users",
+  templateUrl: "./users.component.html",
+  styleUrls: ["./users.component.css"],
 })
 export class UsersComponent implements OnInit {
-
   users: User[] = [];
   totalRows = 0;
   since = 0;
   loading = true;
 
-
-  constructor(public _userService: UserService) { }
+  constructor(
+    public _userService: UserService,
+    public _modalUploadService: ModalUploadService
+  ) {}
 
   ngOnInit() {
     this.loadUsers();
+
+    this._modalUploadService.notification.subscribe( resp => this.loadUsers());
+  }
+
+  showModal( id: string){
+    this._modalUploadService.showModal('user', id);
   }
 
   /**
@@ -28,8 +36,8 @@ export class UsersComponent implements OnInit {
    */
   loadUsers() {
     this.loading = true;
-    this._userService.getUsers( this.since ).subscribe( (resp: any) => {
-      if ( resp['ok']) {
+    this._userService.getUsers(this.since).subscribe((resp: any) => {
+      if (resp["ok"]) {
         this.totalRows = resp.total;
         this.users = resp.users;
         this.loading = false;
@@ -42,16 +50,15 @@ export class UsersComponent implements OnInit {
    * @param text Texto de búsqueda para el usuario
    */
   searchUsers(text: string) {
-
-    if ( text.length <= 0 ) {
+    if (text.length <= 0) {
       this.loadUsers();
       return;
     }
 
     this.loading = true;
 
-    this._userService.searchUsers( text ).subscribe( (resp: any) => {
-      if ( resp['ok']) {
+    this._userService.searchUsers(text).subscribe((resp: any) => {
+      if (resp["ok"]) {
         this.totalRows = resp.total;
         this.users = resp.users;
         this.loading = false;
@@ -70,25 +77,21 @@ export class UsersComponent implements OnInit {
     }
 
     Swal.fire({
-      title: 'Estas seguro?',
+      title: "Estas seguro?",
       text: "La información a eliminar es irreversible recuperar!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Estoy seguro!',
-      cancelButtonText: 'Cancelar'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, Estoy seguro!",
+      cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.value) {
         this.loading = true;
-        this._userService.deleteUser( user._id ).subscribe( (resp: any) => {
-          if ( resp['ok']) {
+        this._userService.deleteUser(user._id).subscribe((resp: any) => {
+          if (resp["ok"]) {
             this.loading = false;
-            Swal.fire(
-              'Eliminado!',
-              'El registro ha sido eliminado',
-              'success'
-            );
+            Swal.fire("Eliminado!", "El registro ha sido eliminado", "success");
           }
         });
       }
@@ -101,24 +104,23 @@ export class UsersComponent implements OnInit {
    */
   changeSince(value: number) {
     const since = this.since + value;
-    if ( since >= this.totalRows ) {
+    if (since >= this.totalRows) {
       return;
     }
-    if ( since < 0 ) {
+    if (since < 0) {
       return;
     }
-    this.since  += value;
+    this.since += value;
     this.loadUsers();
   }
 
   /**
    * Metodo para guardar usuario
-   * @param user 
+   * @param user
    */
-  saveUser(user: User){
-    this._userService.updateUser(user).subscribe( (resp: any) => {
-      this._userService.validateResponseService( resp, "Usuario actualizado!" );
+  saveUser(user: User) {
+    this._userService.updateUser(user).subscribe((resp: any) => {
+      this._userService.validateResponseService(resp, "Usuario actualizado!");
     });
-    
   }
 }
