@@ -19,6 +19,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { PipesModule } from '../pipes/pipes.module';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
+import { ModalUploadComponent } from './modal-upload/modal-upload.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { UsersComponent } from './users/users.component';
         PromisesComponent,
         RxjsComponent,
         ProfileComponent,
-        UsersComponent
+        UsersComponent, 
+        ModalUploadComponent
     ],
     exports: [
         DashboardComponent,
